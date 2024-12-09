@@ -5,4 +5,4 @@ python replica_server.py 5002
 python replica_server.py 5003
 python orgin_server.py 
 python controller.py
-python client.py
+go to page of controller
