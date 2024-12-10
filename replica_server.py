@@ -1,4 +1,4 @@
-from flask import Flask, request, send_from_directory
+from flask import Flask, request, send_from_directory, render_template
 import os
 import sys
 
@@ -18,11 +18,20 @@ def store_video():
     video.save(os.path.join(video_store_folder, video.filename))
     return f"Video {video.filename} stored successfully in {video_store_folder}.", 200
 
+@app.route('/render_video/<video_name>', methods=['GET'])
+def render_video(video_name):
+    # Dynamically generate the video URL
+    video_url = f"/serve_video/{video_name}"
+    # Extract the controller's URL from the query parameter
+    controller_url = request.args.get('controller_url', '#')  # Default to '#' if not provided
+    # Render the video.html template with the controller URL
+    return render_template('video.html', video_name=video_name, video_url=video_url, controller_url=controller_url)
 
-@app.route('/get_video/<video_name>', methods=['GET'])
-def get_video(video_name):
+@app.route('/serve_video/<video_name>', methods=['GET'])
+def serve_video(video_name):
+    # Serve the video file from the stored_videos_<port> directory
     return send_from_directory(video_store_folder, video_name)
 
 
 if __name__ == '__main__':
-    app.run(port=port)
+    app.run(port=port,debug=True)

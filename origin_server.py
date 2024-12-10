@@ -22,9 +22,9 @@ def push_videos():
                     requests.post(f"{server}/store_video", files=files)
     print("Videos pushed to replica servers.")
 
-@app.route('/')
-def hello():
-    return "Origin Server is Running!"
+# @app.route('/')
+# def hello():
+#     return "Origin Server is Running!"
 
 if __name__ == '__main__':
     push_videos()  # Automatically push videos on startup

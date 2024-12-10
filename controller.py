@@ -28,20 +28,10 @@ def index():
 def request_video(video_name):
     # Select a replica server randomly
     selected_server = random.choice(replica_servers)
-    # Instead of directly redirecting the user to the replica server,
-    # we redirect them to a route that shows them a web page with the video player.
-    return redirect(url_for('watch_video', video_name=video_name, server=selected_server))
+    # Include the controller's IP address in the redirect URL
+    controller_url = "http://localhost:5004"
+    return redirect(f"{selected_server}/render_video/{video_name}?controller_url={controller_url}")
 
-@app.route('/watch_video/<video_name>')
-def watch_video(video_name):
-    # The server parameter comes in from the request_video redirect
-    server = request.args.get('server')
-    if not server:
-        # Fallback: If no server chosen, pick one randomly
-        server = random.choice(replica_servers)
-    # Construct the URL for the video
-    video_url = f"{server}/get_video/{video_name}"
-    return render_template('video.html', video_name=video_name, video_url=video_url)
 
 if __name__ == '__main__':
     app.run(port=5004, debug=True)
