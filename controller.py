@@ -5,9 +5,9 @@ import os
 app = Flask(__name__)
 
 replica_servers = [
-    'http://localhost:5001',
-    'http://localhost:5002',
-    'http://localhost:5003'
+    'https://replica1.com',
+    'https://replica2.com',
+    'https://replica3.com'
 ]
 
 # Path to the local directory containing the original videos
@@ -29,7 +29,7 @@ def request_video(video_name):
     # Select a replica server randomly
     selected_server = random.choice(replica_servers)
     # Include the controller's IP address in the redirect URL
-    controller_url = "http://localhost:5004"
+    controller_url = "https://controller.com"
     return redirect(f"{selected_server}/render_video/{video_name}?controller_url={controller_url}")
 
 
