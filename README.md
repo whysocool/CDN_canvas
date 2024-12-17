@@ -5,7 +5,7 @@
 4. python origin_server.py   
 5. python controller.py  
 
-### add some mappings in hosts.
+### add some mappings in C:\Windows\System32\drivers\etc\hosts.
 '127.0.0.1 controller.com  
 127.0.0.1 replica1.com  
 127.0.0.1 replica2.com  
